@@ -1,26 +1,380 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Julia — Niveles</title>
-  <link rel="stylesheet" href="styles.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para Ti</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Segoe UI',sans-serif;
+}
+
+html,body{
+    width:100%;
+    min-height:100%;
+    overflow-x:hidden;
+}
+
+body{
+    background:linear-gradient(135deg,#00b4b4,#36d1dc,#5b86e5);
+    display:flex;
+    justify-content:center;
+    align-items:flex-start;
+    color:white;
+    text-align:center;
+    position:relative;
+    padding:40px 15px;
+}
+
+.card{
+    width:100%;
+    max-width:760px;
+    background:rgba(255,255,255,0.12);
+    backdrop-filter:blur(14px);
+    padding:45px;
+    border-radius:30px;
+    box-shadow:0 10px 40px rgba(0,0,0,0.2);
+    animation:fade 1.5s ease;
+    z-index:2;
+}
+
+h1{
+    font-size:3rem;
+    margin-bottom:25px;
+    line-height:1.2;
+}
+
+p{
+    font-size:1.28rem;
+    line-height:2;
+    margin-bottom:18px;
+    word-wrap:break-word;
+}
+
+.whatsapp{
+    display:inline-flex;
+    align-items:center;
+    gap:10px;
+    background:rgba(255,255,255,0.15);
+    padding:10px 18px;
+    border-radius:50px;
+    margin-bottom:25px;
+    font-size:1rem;
+    flex-wrap:wrap;
+    justify-content:center;
+}
+
+.whatsapp img{
+    width:28px;
+    height:28px;
+}
+
+.main-image{
+    width:220px;
+    max-width:85%;
+    margin-top:25px;
+    border-radius:20px;
+    animation:floatImage 3s ease-in-out infinite;
+}
+
+button{
+    margin-top:30px;
+    padding:16px 35px;
+    border:none;
+    border-radius:50px;
+    background:white;
+    color:#00a7a7;
+    font-size:1rem;
+    font-weight:bold;
+    cursor:pointer;
+    transition:0.3s;
+    max-width:100%;
+}
+
+button:hover{
+    transform:scale(1.08);
+}
+
+.popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999;
+    padding:20px;
+    overflow-y:auto;
+}
+
+.popup-content{
+    background:white;
+    color:#00a7a7;
+    padding:40px;
+    border-radius:30px;
+    max-width:700px;
+    width:100%;
+    text-align:center;
+    animation:popup 0.5s ease;
+}
+
+.popup-content h2{
+    font-size:2.5rem;
+    margin-bottom:25px;
+}
+
+.popup-content p{
+    font-size:1.4rem;
+    line-height:2;
+    color:#333;
+}
+
+.option-buttons{
+    margin-top:35px;
+    display:flex;
+    gap:15px;
+    justify-content:center;
+    flex-wrap:wrap;
+}
+
+.option-buttons button{
+    background:#00a7a7;
+    color:white;
+    margin-top:0;
+}
+
+.heart{
+    position:fixed;
+    bottom:-50px;
+    color:white;
+    animation:up linear forwards;
+    opacity:0.7;
+    pointer-events:none;
+}
+
+@keyframes up{
+    to{
+        transform:translateY(-120vh);
+    }
+}
+
+@keyframes fade{
+    from{
+        opacity:0;
+        transform:translateY(30px);
+    }
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+@keyframes popup{
+    from{
+        transform:scale(0.7);
+        opacity:0;
+    }
+    to{
+        transform:scale(1);
+        opacity:1;
+    }
+}
+
+@keyframes floatImage{
+    0%{
+        transform:translateY(0px);
+    }
+    50%{
+        transform:translateY(-10px);
+    }
+    100%{
+        transform:translateY(0px);
+    }
+}
+
+/* CELULARES */
+
+@media(max-width:768px){
+
+    body{
+        padding:20px 10px;
+    }
+
+    .card{
+        padding:28px 18px;
+        border-radius:24px;
+    }
+
+    h1{
+        font-size:2rem;
+    }
+
+    p{
+        font-size:1rem;
+        line-height:1.8;
+    }
+
+    .popup-content{
+        padding:28px 18px;
+        border-radius:24px;
+    }
+
+    .popup-content h2{
+        font-size:1.8rem;
+    }
+
+    .popup-content p{
+        font-size:1rem;
+        line-height:1.8;
+    }
+
+    button{
+        width:100%;
+        font-size:1rem;
+    }
+
+    .option-buttons{
+        flex-direction:column;
+    }
+
+}
+
+</style>
 </head>
+
 <body>
 
-  <div class="container">
+<div class="card">
 
-    <!-- Título principal -->
-    <h1 class="site-title">Julia</h1>
-    <p class="site-subtitle">Elige un nivel para comenzar</p>
+<div class="whatsapp">
+<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
+<span>Vi el estado de WhatsApp</span>
+</div>
 
-    <!-- Cuadrícula de niveles -->
-    <div class="levels-grid" id="levelsGrid">
-      <!-- Generado por script.js -->
-    </div>
+<h1>A mí tu personalidad me encanta.</h1>
 
-  </div>
+<p>
+Estés sensible, contenta, enojada, como ahora JAJAJA,
+seria, ansiosa, con nervios o con risa...
+</p>
 
-  <script src="script.js"></script>
+<p>
+Amo cada parte de ti.
+</p>
+
+<p>
+¿Te he dicho que tengo suerte?
+</p>
+
+<img class="main-image"
+src="https://static.wikia.nocookie.net/penguinsofmadagascar/images/f/f8/Ahkjmort.png/revision/latest?cb=20190727144938">
+
+<br>
+
+<button onclick="mostrarPopup()">
+Presiónalo y venga le digo algo, mi amor
+</button>
+
+</div>
+
+<div class="popup" id="popup">
+
+<div class="popup-content" id="popupContent">
+
+<h2>Ahora...</h2>
+
+<p>
+Perdóname.
+</p>
+
+<p>
+Dime que me amas.
+</p>
+
+<p>
+Déjame verte.
+</p>
+
+<p>
+Y ten una vida conmigo.
+</p>
+
+<div class="option-buttons">
+
+<button onclick="respuestaPerdon()">
+Te perdono
+</button>
+
+<button onclick="respuestaNoDisponible()">
+No te perdono
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+function mostrarPopup(){
+    document.getElementById("popup").style.display = "flex";
+}
+
+function respuestaNoDisponible(){
+
+    alert("La respuesta seleccionada no está disponible. Debes presionar 'Te perdono'.");
+}
+
+function respuestaPerdon(){
+
+    document.getElementById("popupContent").innerHTML = `
+    
+        <h2 style="color:#00a7a7;">
+            Epa la Arepa
+        </h2>
+
+        <p style="font-size:1.2rem; line-height:2; color:#333;">
+            Esoo Mamii, así e´que e'
+            <br><br>
+            Y sí...
+            <br><br>
+            Me la quiero Culia.
+        </p>
+
+    `;
+}
+
+function crearCorazon(){
+
+    const heart = document.createElement("div");
+
+    heart.classList.add("heart");
+
+    heart.innerHTML = "❤";
+
+    heart.style.left = Math.random() * 100 + "vw";
+
+    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
+
+    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
+
+    document.body.appendChild(heart);
+
+    setTimeout(()=>{
+        heart.remove();
+    },6000);
+
+}
+
+setInterval(crearCorazon,300);
+
+</script>
+
 </body>
 </html>
