@@ -2,378 +2,295 @@
 <html lang="es">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Para Ti</title>
-
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Para mi chama hermosa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,600&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
 <style>
+  :root{
+    --black:#0c0a0e;
+    --charcoal:#18151b;
+    --ash:#2b2630;
+    --pink:#f4a6c6;
+    --pink-deep:#e0729e;
+    --cream:#f5eef1;
+  }
 
-*{
+  *{box-sizing:border-box;}
+
+  html,body{
     margin:0;
     padding:0;
-    box-sizing:border-box;
-    font-family:'Segoe UI',sans-serif;
-}
-
-html,body{
     width:100%;
-    min-height:100%;
-    overflow-x:hidden;
-}
+    height:100%;
+    background:
+      radial-gradient(ellipse at 20% 15%, rgba(224,114,158,0.16), transparent 55%),
+      radial-gradient(ellipse at 85% 80%, rgba(244,166,198,0.10), transparent 50%),
+      linear-gradient(180deg, var(--black) 0%, var(--charcoal) 55%, #14111a 100%);
+    overflow:hidden;
+    font-family:'Quicksand', sans-serif;
+    -webkit-tap-highlight-color: transparent;
+  }
 
-body{
-    background:linear-gradient(135deg,#00b4b4,#36d1dc,#5b86e5);
-    display:flex;
-    justify-content:center;
-    align-items:flex-start;
-    color:white;
-    text-align:center;
-    position:relative;
-    padding:40px 15px;
-}
-
-.card{
-    width:100%;
-    max-width:760px;
-    background:rgba(255,255,255,0.12);
-    backdrop-filter:blur(14px);
-    padding:45px;
-    border-radius:30px;
-    box-shadow:0 10px 40px rgba(0,0,0,0.2);
-    animation:fade 1.5s ease;
-    z-index:2;
-}
-
-h1{
-    font-size:3rem;
-    margin-bottom:25px;
-    line-height:1.2;
-}
-
-p{
-    font-size:1.28rem;
-    line-height:2;
-    margin-bottom:18px;
-    word-wrap:break-word;
-}
-
-.whatsapp{
-    display:inline-flex;
-    align-items:center;
-    gap:10px;
-    background:rgba(255,255,255,0.15);
-    padding:10px 18px;
-    border-radius:50px;
-    margin-bottom:25px;
-    font-size:1rem;
-    flex-wrap:wrap;
-    justify-content:center;
-}
-
-.whatsapp img{
-    width:28px;
-    height:28px;
-}
-
-.main-image{
-    width:220px;
-    max-width:85%;
-    margin-top:25px;
-    border-radius:20px;
-    animation:floatImage 3s ease-in-out infinite;
-}
-
-button{
-    margin-top:30px;
-    padding:16px 35px;
-    border:none;
-    border-radius:50px;
-    background:white;
-    color:#00a7a7;
-    font-size:1rem;
-    font-weight:bold;
-    cursor:pointer;
-    transition:0.3s;
-    max-width:100%;
-}
-
-button:hover{
-    transform:scale(1.08);
-}
-
-.popup{
+  .hearts{
     position:fixed;
     inset:0;
-    background:rgba(0,0,0,0.75);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999;
-    padding:20px;
-    overflow-y:auto;
-}
-
-.popup-content{
-    background:white;
-    color:#00a7a7;
-    padding:40px;
-    border-radius:30px;
-    max-width:700px;
-    width:100%;
-    text-align:center;
-    animation:popup 0.5s ease;
-}
-
-.popup-content h2{
-    font-size:2.5rem;
-    margin-bottom:25px;
-}
-
-.popup-content p{
-    font-size:1.4rem;
-    line-height:2;
-    color:#333;
-}
-
-.option-buttons{
-    margin-top:35px;
-    display:flex;
-    gap:15px;
-    justify-content:center;
-    flex-wrap:wrap;
-}
-
-.option-buttons button{
-    background:#00a7a7;
-    color:white;
-    margin-top:0;
-}
-
-.heart{
-    position:fixed;
-    bottom:-50px;
-    color:white;
-    animation:up linear forwards;
-    opacity:0.7;
     pointer-events:none;
-}
+    z-index:1;
+  }
 
-@keyframes up{
-    to{
-        transform:translateY(-120vh);
-    }
-}
+  .heart{
+    position:absolute;
+    bottom:-10%;
+    color:var(--pink);
+    opacity:0;
+    filter:drop-shadow(0 0 6px rgba(244,166,198,0.35));
+    animation: rise linear infinite;
+  }
 
-@keyframes fade{
-    from{
-        opacity:0;
-        transform:translateY(30px);
-    }
-    to{
-        opacity:1;
-        transform:translateY(0);
-    }
-}
+  @keyframes rise{
+    0%{ transform: translateY(0) translateX(0) rotate(0deg); opacity:0; }
+    8%{ opacity:0.55; }
+    50%{ transform: translateY(-55vh) translateX(var(--drift,10px)) rotate(15deg); }
+    90%{ opacity:0.35; }
+    100%{ transform: translateY(-105vh) translateX(calc(var(--drift,10px) * -1)) rotate(-10deg); opacity:0; }
+  }
 
-@keyframes popup{
-    from{
-        transform:scale(0.7);
-        opacity:0;
-    }
-    to{
-        transform:scale(1);
-        opacity:1;
-    }
-}
+  .stage{
+    position:relative;
+    z-index:2;
+    min-height:100dvh;
+    width:100%;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 8vh 6vw 6vh;
+    text-align:center;
+  }
 
-@keyframes floatImage{
-    0%{
-        transform:translateY(0px);
-    }
-    50%{
-        transform:translateY(-10px);
-    }
-    100%{
-        transform:translateY(0px);
-    }
-}
+  .phrase-box{
+    position:relative;
+    width:min(720px, 88vw);
+    min-height:clamp(180px, 32vh, 300px);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
 
-/* CELULARES */
+  .phrase{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-family:'Playfair Display', serif;
+    font-weight:600;
+    font-style:italic;
+    color:var(--cream);
+    font-size:clamp(1.5rem, 4.6vw, 2.7rem);
+    line-height:1.35;
+    letter-spacing:0.01em;
+    opacity:0;
+    filter:blur(6px);
+    transform:scale(0.96);
+    text-shadow: 0 0 24px rgba(224,114,158,0.25);
+  }
 
-@media(max-width:768px){
+  .phrase.final{
+    color:var(--pink);
+  }
 
-    body{
-        padding:20px 10px;
-    }
+  .phrase.show{
+    animation: reveal 3.6s ease forwards;
+  }
 
-    .card{
-        padding:28px 18px;
-        border-radius:24px;
-    }
+  .phrase.stay{
+    animation: settle 1.6s ease forwards;
+  }
 
-    h1{
-        font-size:2rem;
-    }
+  @keyframes reveal{
+    0%{ opacity:0; filter:blur(6px); transform:scale(0.96); }
+    18%{ opacity:1; filter:blur(0); transform:scale(1); }
+    78%{ opacity:1; filter:blur(0); transform:scale(1); }
+    100%{ opacity:0; filter:blur(6px); transform:scale(1.03); }
+  }
 
-    p{
-        font-size:1rem;
-        line-height:1.8;
-    }
+  @keyframes settle{
+    0%{ opacity:0; filter:blur(6px); transform:scale(0.96); }
+    100%{ opacity:1; filter:blur(0); transform:scale(1); }
+  }
 
-    .popup-content{
-        padding:28px 18px;
-        border-radius:24px;
-    }
+  .divider{
+    width:64px;
+    height:1px;
+    margin: 1.6rem auto 0;
+    background:linear-gradient(90deg, transparent, var(--pink-deep), transparent);
+    opacity:0;
+    transition:opacity 1.2s ease;
+  }
 
-    .popup-content h2{
-        font-size:1.8rem;
-    }
+  .divider.show{ opacity:0.7; }
 
-    .popup-content p{
-        font-size:1rem;
-        line-height:1.8;
-    }
+  .cta{
+    margin-top:2.4rem;
+    opacity:0;
+    transform:translateY(14px);
+    transition: opacity 1s ease, transform 1s ease;
+    pointer-events:none;
+  }
 
-    button{
-        width:100%;
-        font-size:1rem;
-    }
+  .cta.show{
+    opacity:1;
+    transform:translateY(0);
+    pointer-events:auto;
+  }
 
-    .option-buttons{
-        flex-direction:column;
-    }
+  .cta a{
+    display:inline-flex;
+    align-items:center;
+    gap:0.55rem;
+    text-decoration:none;
+    font-family:'Quicksand', sans-serif;
+    font-weight:600;
+    font-size:clamp(0.95rem, 2.6vw, 1.08rem);
+    color:var(--black);
+    background:linear-gradient(135deg, var(--pink) 0%, var(--pink-deep) 100%);
+    padding:0.95rem 1.9rem;
+    border-radius:999px;
+    box-shadow:0 8px 28px rgba(224,114,158,0.35), 0 0 0 1px rgba(255,255,255,0.06) inset;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    letter-spacing:0.01em;
+  }
 
-}
+  .cta a:hover, .cta a:focus-visible{
+    transform:translateY(-3px);
+    box-shadow:0 12px 34px rgba(224,114,158,0.5), 0 0 0 1px rgba(255,255,255,0.08) inset;
+  }
 
+  .cta a:active{
+    transform:translateY(0px) scale(0.98);
+  }
+
+  .cta svg{ width:20px; height:20px; flex-shrink:0; }
+
+  .footnote{
+    margin-top:1.3rem;
+    font-family:'Playfair Display', serif;
+    font-style:italic;
+    font-weight:500;
+    font-size:clamp(0.85rem, 2.4vw, 1rem);
+    color:var(--pink);
+    opacity:0;
+    transform:translateY(10px);
+    transition: opacity 1.2s ease, transform 1.2s ease;
+  }
+
+  .footnote.show{
+    opacity:0.85;
+    transform:translateY(0);
+  }
+
+  .signature{
+    position:relative;
+    z-index:2;
+    padding-bottom:3vh;
+    text-align:center;
+    font-family:'Quicksand', sans-serif;
+    font-size:0.78rem;
+    letter-spacing:0.14em;
+    text-transform:uppercase;
+    color:var(--ash);
+    opacity:0.75;
+  }
+
+  .signature span{
+    color:var(--pink-deep);
+  }
+
+  @media (prefers-reduced-motion: reduce){
+    .heart{ animation:none; opacity:0.25; }
+    .phrase.show, .phrase.stay{ animation:none; opacity:1; filter:none; transform:none; }
+    .divider, .cta{ transition:none; }
+  }
 </style>
 </head>
-
 <body>
 
-<div class="card">
+  <div class="hearts" id="hearts"></div>
 
-<div class="whatsapp">
-<img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg">
-<span>Vi el estado de WhatsApp</span>
-</div>
+  <main class="stage">
+    <div class="phrase-box">
+      <p class="phrase" id="p1">Siempre serás mi mujer Irreal,</p>
+      <p class="phrase" id="p2">por más cosas que pasemos,</p>
+      <p class="phrase final" id="p3">siempre, siempre, mi chama hermosa.</p>
+    </div>
 
-<h1>A mí tu personalidad me encanta.</h1>
+    <div class="divider" id="divider"></div>
 
-<p>
-Estés sensible, contenta, enojada, como ahora JAJAJA,
-seria, ansiosa, con nervios o con risa...
-</p>
+    <div class="cta" id="cta">
+      <a id="waLink" href="#" target="_blank" rel="noopener">
+        <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M6 10.5c0-3.31 2.69-6 6-6s6 2.69 6 6" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"/>
+          <path d="M4.5 10.5h15a.6.6 0 0 1 .6.72l-.4 1.9a.9.9 0 0 1-.88.7H5.18a.9.9 0 0 1-.88-.7l-.4-1.9a.6.6 0 0 1 .6-.72Z" fill="currentColor" opacity="0.9"/>
+          <rect x="10.6" y="7.4" width="2.8" height="1.5" rx="0.3" fill="var(--charcoal)" opacity="0.55"/>
+          <circle cx="12" cy="16.3" r="2.6" fill="currentColor" opacity="0.16" stroke="currentColor" stroke-width="1.5"/>
+          <path d="M8.7 21.2c0-1.9 1.5-3.3 3.3-3.3s3.3 1.4 3.3 3.3" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+        </svg>
+        Dele acá Mami
+      </a>
+    </div>
 
-<p>
-Amo cada parte de ti.
-</p>
+    <p class="footnote" id="footnote">siempre mi corazón será tuyo</p>
+  </main>
 
-<p>
-¿Te he dicho que tengo suerte?
-</p>
-
-<img class="main-image"
-src="https://static.wikia.nocookie.net/penguinsofmadagascar/images/f/f8/Ahkjmort.png/revision/latest?cb=20190727144938">
-
-<br>
-
-<button onclick="mostrarPopup()">
-Presiónalo y venga le digo algo, mi amor
-</button>
-
-</div>
-
-<div class="popup" id="popup">
-
-<div class="popup-content" id="popupContent">
-
-<h2>Ahora...</h2>
-
-<p>
-Perdóname.
-</p>
-
-<p>
-Dime que me amas.
-</p>
-
-<p>
-Déjame verte.
-</p>
-
-<p>
-Y ten una vida conmigo.
-</p>
-
-<div class="option-buttons">
-
-<button onclick="respuestaPerdon()">
-Te perdono
-</button>
-
-<button onclick="respuestaNoDisponible()">
-No te perdono
-</button>
-
-</div>
-
-</div>
-
-</div>
+  <p class="signature">para mi chama hermosa <span>&#9825;</span></p>
 
 <script>
+  // Botón de WhatsApp: número + mensaje precargado
+  const phone = "573206401430";
+  const message = "Me caeS mal pero te AMO AMO AMO ";
+  document.getElementById("waLink").href =
+    "https://wa.me/" + phone + "?text=" + encodeURIComponent(message);
 
-function mostrarPopup(){
-    document.getElementById("popup").style.display = "flex";
-}
+  // Corazones flotando de fondo
+  const heartsContainer = document.getElementById("hearts");
+  const HEART_COUNT = 18;
+  for (let i = 0; i < HEART_COUNT; i++) {
+    const h = document.createElement("div");
+    h.className = "heart";
+    h.innerHTML = Math.random() > 0.5 ? "&#10084;" : "&#9825;";
+    const size = 10 + Math.random() * 18;
+    h.style.left = Math.random() * 100 + "%";
+    h.style.fontSize = size + "px";
+    h.style.setProperty("--drift", (Math.random() * 60 - 30) + "px");
+    const duration = 9 + Math.random() * 10;
+    h.style.animationDuration = duration + "s";
+    h.style.animationDelay = (Math.random() * duration) + "s";
+    heartsContainer.appendChild(h);
+  }
 
-function respuestaNoDisponible(){
+  // Secuencia de frases
+  const p1 = document.getElementById("p1");
+  const p2 = document.getElementById("p2");
+  const p3 = document.getElementById("p3");
+  const divider = document.getElementById("divider");
+  const cta = document.getElementById("cta");
+  const footnote = document.getElementById("footnote");
 
-    alert("La respuesta seleccionada no está disponible. Debes presionar 'Te perdono'.");
-}
+  function run(){
+    p1.classList.add("show");
+    setTimeout(() => p2.classList.add("show"), 3100);
+    setTimeout(() => {
+      p3.classList.add("stay");
+      divider.classList.add("show");
+      cta.classList.add("show");
+      setTimeout(() => footnote.classList.add("show"), 500);
+    }, 6200);
+  }
 
-function respuestaPerdon(){
-
-    document.getElementById("popupContent").innerHTML = `
-    
-        <h2 style="color:#00a7a7;">
-            Epa la Arepa
-        </h2>
-
-        <p style="font-size:1.2rem; line-height:2; color:#333;">
-            Esoo Mamii, así e´que e'
-            <br><br>
-            Y sí...
-            <br><br>
-            Me la quiero Culia.
-        </p>
-
-    `;
-}
-
-function crearCorazon(){
-
-    const heart = document.createElement("div");
-
-    heart.classList.add("heart");
-
-    heart.innerHTML = "❤";
-
-    heart.style.left = Math.random() * 100 + "vw";
-
-    heart.style.fontSize = (Math.random() * 20 + 15) + "px";
-
-    heart.style.animationDuration = (Math.random() * 3 + 3) + "s";
-
-    document.body.appendChild(heart);
-
-    setTimeout(()=>{
-        heart.remove();
-    },6000);
-
-}
-
-setInterval(crearCorazon,300);
-
+  window.addEventListener("load", () => setTimeout(run, 300));
 </script>
 
 </body>
