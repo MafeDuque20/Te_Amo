@@ -1,0 +1,5 @@
+Copia aqui tus archivos:
+  cancion-01.mp3
+  cancion-02.mp3
+
+Luego puedes borrar este archivo de texto.
