@@ -6,7 +6,7 @@
 <title>Para ti</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,500;1,600&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Newsreader:ital,wght@0,400;0,500;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
 <style>
   :root{
     --black:#0A0E0D;
@@ -246,11 +246,15 @@
 
   .boton-play svg{ width:13px; height:13px; }
 
-  /* ---------- TRACKLIST ---------- */
+  /* ---------- TRACKLIST & TARJETAS DE ANIVERSARIO ---------- */
   .album{
     max-width:520px;
     margin:0 auto;
     padding:0 1.2rem;
+  }
+
+  .pista-contenedor{
+    margin-bottom:0.6rem;
   }
 
   .pista{
@@ -295,6 +299,77 @@
   }
 
   .pista.activa .pista-estado{ color:var(--teal); }
+
+  /* --- Resaltado Especial Aniversario para Casillas 3 y 4 --- */
+  .pista-especial {
+    border: 1px solid rgba(62, 140, 126, 0.4) !important;
+    background: linear-gradient(135deg, rgba(18, 58, 52, 0.35), rgba(16, 35, 58, 0.45), rgba(40, 20, 50, 0.3)) !important;
+    box-shadow: 0 4px 20px rgba(62, 140, 126, 0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .pista-especial::before {
+    content: "";
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.05), transparent);
+    animation: resplandorPista 4s infinite linear;
+    pointer-events: none;
+  }
+
+  @keyframes resplandorPista {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+
+  /* Estilos para las notas especiales con animación de color */
+  .nota-destacada {
+    margin: 0.2rem 0.3rem 0.6rem 2.2rem;
+    padding: 0.65rem 0.95rem;
+    border-radius: 8px;
+    background: rgba(10, 14, 13, 0.6);
+    border: 1px solid rgba(234, 242, 237, 0.08);
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    backdrop-filter: blur(4px);
+  }
+
+  .nota-fecha {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--teal);
+    opacity: 0.9;
+  }
+
+  .nota-texto {
+    font-size: 0.88rem;
+    font-weight: 500;
+    font-family: 'Newsreader', serif;
+    font-style: italic;
+    line-height: 1.4;
+    
+    /* Animación continua de color */
+    animation: cambioColor 6s infinite alternate ease-in-out;
+  }
+
+  @keyframes cambioColor {
+    0% {
+      color: #3E8C7E;
+    }
+    33% {
+      color: #5B9BD5;
+    }
+    66% {
+      color: #E2A0B7;
+    }
+    100% {
+      color: #E6C875;
+    }
+  }
 
   .aviso{
     max-width:480px;
@@ -358,18 +433,32 @@
 
 <script>
   /* ============================================================
-     PARA AGREGAR O CAMBIAR CANCIONES:
-     1. Copia tus archivos .mp3 a la carpeta "audio".
-     2. Nombralos exactamente como se indica abajo (cancion-01.mp3,
-        cancion-02.mp3, etc) o cambia el nombre aqui para que coincida.
-     3. Escribe el titulo real de la cancion en "titulo".
-     4. Puedes agregar mas canciones copiando una linea y sumando
-        el siguiente numero.
+     LISTADO DE CANCIONES Y NOTAS DE ANIVERSARIO
      ============================================================ */
 
   const canciones = [
-    { archivo: "audio/cancion-01.mp3", titulo: "Beso" },
-    { archivo: "audio/cancion-02.mp3", titulo: "Donde Nadie Pueda Ir" }
+    { 
+      archivo: "audio/cancion-01.mp3", 
+      titulo: "Beso" 
+    },
+    { 
+      archivo: "audio/cancion-02.mp3", 
+      titulo: "Donde Nadie Pueda Ir" 
+    },
+    { 
+      archivo: "audio/cancion-03.mp3", 
+      titulo: "Feliz me Siento", 
+      resaltada: true,
+      fecha: "19/08/2026",
+      nota: "Feliz primer año de muchos amor mío" 
+    },
+    { 
+      archivo: "audio/cancion-04.mp3", 
+      titulo: "Eres ese Algo", 
+      resaltada: true,
+      fecha: "19/08/2026",
+      nota: "El día en que nuestras vidas se cruzaron para siempre ❤️" 
+    }
   ];
 
   const listaEl = document.getElementById("lista-pistas");
@@ -406,13 +495,19 @@
     listaEl.innerHTML = "";
     canciones.forEach(function(cancion, i){
       const enEsta = i === indiceActual;
+      
+      const contenedor = document.createElement("div");
+      contenedor.className = "pista-contenedor";
+
       const fila = document.createElement("div");
-      fila.className = "pista" + (enEsta ? " activa" : "");
+      fila.className = "pista" + (enEsta ? " activa" : "") + (cancion.resaltada ? " pista-especial" : "");
+      
       const numero = String(i + 1).padStart(2, "0");
       fila.innerHTML =
         '<span class="pista-numero">' + numero + '</span>' +
         '<span class="pista-nombre">' + cancion.titulo + '</span>' +
         '<span class="pista-estado">' + iconoEstado(enEsta && sonando) + '</span>';
+      
       fila.addEventListener("click", function(){
         if(i === indiceActual){
           alternarReproduccion();
@@ -421,7 +516,25 @@
           cargarCancion(true);
         }
       });
-      listaEl.appendChild(fila);
+
+      contenedor.appendChild(fila);
+
+      // Si la canción incluye nota y fecha, se renderiza la tarjeta resaltada
+      if(cancion.nota){
+        const notaEl = document.createElement("div");
+        notaEl.className = "nota-destacada";
+        
+        let htmlNota = "";
+        if(cancion.fecha){
+          htmlNota += '<span class="nota-fecha">✦ ' + cancion.fecha + '</span>';
+        }
+        htmlNota += '<span class="nota-texto">' + cancion.nota + '</span>';
+        
+        notaEl.innerHTML = htmlNota;
+        contenedor.appendChild(notaEl);
+      }
+
+      listaEl.appendChild(contenedor);
     });
   }
 
@@ -463,7 +576,7 @@
   }
 
   function mostrarAviso(){
-    aviso.textContent = "Copia tus archivos mp3 en la carpeta \"audio\" con los nombres cancion-01.mp3 y cancion-02.mp3 para que suenen aqui.";
+    aviso.textContent = "Copia tus archivos mp3 en la carpeta \"audio\" (cancion-01.mp3 a cancion-04.mp3) para reproducir la música.";
   }
 
   function alternarReproduccion(){
