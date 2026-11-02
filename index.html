@@ -1,65 +1,556 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<meta name="theme-color" content="#0b1015" />
-<title>Para ti · Nuestro soundtrack</title>
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;0,600;1,500&display=swap" rel="stylesheet" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Para ti | Nuestro reproductor</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,500;1,500&display=swap" rel="stylesheet">
 <style>
-:root{color-scheme:dark;--bg:#090e14;--surface:#131c25;--muted:#93a4af;--line:rgba(255,255,255,.09);--text:#f2f6f7;--mint:#94ddc6;--pink:#e8a8bd;--blue:#7e9cd4}
-*{box-sizing:border-box}body{margin:0;min-height:100vh;color:var(--text);font-family:'DM Sans',sans-serif;background:radial-gradient(ellipse at 10% 0%,#17403970,transparent 42%),radial-gradient(ellipse at 90% 24%,#273b6c67,transparent 38%),var(--bg)}button,input{font:inherit}button{cursor:pointer}button:focus-visible,input:focus-visible{outline:2px solid var(--mint);outline-offset:4px}button:disabled{opacity:.35;cursor:not-allowed}
-.shell{max-width:1150px;margin:auto;padding:30px 24px 100px}.topbar{display:flex;align-items:center;justify-content:space-between;gap:15px;border-bottom:1px solid var(--line);padding-bottom:22px}.brand{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:700;letter-spacing:.15em;text-transform:uppercase}.brand-mark{width:34px;height:34px;border-radius:12px;background:linear-gradient(135deg,var(--mint),var(--blue));display:grid;place-items:center;color:#0b1820;font-size:18px}.topnote{color:var(--muted);font-size:12px;letter-spacing:.05em}.intro{padding:43px 0 33px}.eyebrow{color:var(--mint);font-size:11px;letter-spacing:.28em;font-weight:700;text-transform:uppercase}.intro h1{font-family:'Playfair Display',serif;font-weight:500;font-size:clamp(36px,5.5vw,64px);line-height:1.1;max-width:680px;letter-spacing:-.035em;margin:12px 0 16px}.intro h1 em{color:var(--mint)}.intro p{color:var(--muted);font-size:14px;line-height:1.7;margin:0}.layout{display:grid;grid-template-columns:minmax(0,1fr) minmax(330px,.92fr);gap:22px;align-items:start}.panel{border:1px solid var(--line);border-radius:26px;background:linear-gradient(145deg,#1a2a32d9,#101821ed);box-shadow:0 20px 65px #0003;overflow:hidden}.player{padding:34px 34px 27px;position:relative}.player:before{content:'';position:absolute;top:0;right:0;width:250px;height:250px;background:radial-gradient(circle,#68b7a124,transparent 70%);pointer-events:none}.upperline{display:flex;justify-content:space-between;gap:10px;align-items:center}.micro{font-size:10px;letter-spacing:.19em;text-transform:uppercase;color:var(--muted);font-weight:700}.tag{color:var(--mint);border:1px solid #94ddc63a;border-radius:30px;font-size:10px;padding:7px 12px}.vinyl-wrap{display:grid;place-items:center;margin:30px 0 25px;position:relative}.halo{width:min(70vw,315px);height:min(70vw,315px);position:relative;display:grid;place-items:center}.halo:before{content:'';position:absolute;inset:-12px;border-radius:50%;border:1px solid #9cdbca24}.vinyl{width:100%;height:100%;border-radius:50%;position:relative;overflow:hidden;box-shadow:0 22px 48px #0009,0 0 0 1px #fff3;background:repeating-radial-gradient(circle at center,transparent 0,transparent 5px,#ffffff0a 6px,transparent 7px),conic-gradient(from 20deg,#080b11,#212d32 16%,#080b11 28%,#263439 43%,#070c10 60%,#223339 74%,#080b11 100%);animation:spin 8s linear infinite;animation-play-state:paused}.vinyl.playing{animation-play-state:running}.vinyl:before{content:'';position:absolute;inset:32%;border-radius:50%;background:radial-gradient(circle at 35% 35%,#92d3c0,#356f71 62%,#1f354d);box-shadow:0 0 0 2px #ffffff35,0 0 0 8px #121820}.vinyl:after{content:'';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:12px;height:12px;border-radius:50%;background:#0a1017;box-shadow:0 0 0 2px #d5e3e099}.heart-center{position:absolute;inset:0;display:grid;place-items:center;color:#eff9f4;font-size:34px;text-shadow:0 2px 15px #0007;pointer-events:none;transform:translateY(-25px)}@keyframes spin{to{transform:rotate(360deg)}}.now{text-align:center}.now .songname{font-family:'Playfair Display',serif;font-size:clamp(25px,4vw,34px);line-height:1.25;margin:8px 0}.now .songdetail{color:var(--muted);font-size:12px}.timeline{margin-top:29px}.seek,.volume{width:100%;accent-color:var(--mint);cursor:pointer;height:5px}.times{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);font-variant-numeric:tabular-nums;margin-top:10px}.controls{display:flex;justify-content:center;align-items:center;gap:20px;margin:27px 0 22px}.icon-button{width:38px;height:38px;border:0;background:transparent;color:#d4e3e5;border-radius:12px;display:grid;place-items:center;transition:color .2s,background .2s}.icon-button:hover{background:#ffffff12;color:var(--mint)}.icon-button.active{color:var(--mint)}.icon-button svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}.play{width:66px;height:66px;border:0;border-radius:50%;background:var(--mint);color:#0c2020;display:grid;place-items:center;box-shadow:0 10px 28px #94ddc62c;transition:transform .2s}.play:hover{transform:scale(1.06)}.play svg{width:25px;height:25px;fill:currentColor}.secondary{display:flex;align-items:center;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:21px}.volume-box{display:flex;align-items:center;gap:10px;max-width:170px;width:100%;color:var(--muted)}.volume-box svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2}.volume{min-width:60px}.status{font-size:11px;color:var(--muted);text-align:right}.message{min-height:22px;color:#e9bdc9;font-size:11px;line-height:1.5;margin:15px 0 0;text-align:center}.playlist-head{padding:27px 26px 17px;display:flex;align-items:end;justify-content:space-between;gap:10px}.playlist-head h2{font-family:'Playfair Display',serif;font-size:27px;font-weight:500;margin:7px 0 0}.count{font-size:11px;color:var(--muted)}.tracklist{padding:0 13px 15px;max-height:690px;overflow-y:auto}.track{width:100%;display:flex;gap:14px;align-items:center;background:transparent;color:var(--text);text-align:left;border:1px solid transparent;border-radius:14px;padding:11px;transition:background .2s,border-color .2s}.track:hover{background:#ffffff08}.track.selected{background:#8fcdbb16;border-color:#9fe6cd32}.track-number{width:29px;flex-shrink:0;text-align:center;color:var(--muted);font-size:12px;font-variant-numeric:tabular-nums}.track.selected .track-number{color:var(--mint)}.mini-art{height:47px;width:47px;border-radius:11px;background:linear-gradient(145deg,#2b6862,#233f63);display:grid;place-items:center;color:#d2f4e3;font-size:19px;flex-shrink:0}.track:nth-child(3n) .mini-art{background:linear-gradient(145deg,#67506f,#304e75)}.track:nth-child(4n) .mini-art{background:linear-gradient(145deg,#795b62,#385b6a)}.track-info{min-width:0;flex:1}.track-title{font-weight:700;font-size:13px;line-height:1.4}.track-sub{font-size:11px;color:var(--muted);margin-top:3px}.track-icon{font-size:17px;color:var(--muted);padding-right:6px}.track.selected .track-icon{color:var(--mint)}.dedication{margin:0 8px 9px 60px;padding:13px 15px;border-radius:12px;background:linear-gradient(110deg,#86d5c00b,#a2a8e60c);border-left:2px solid var(--pink)}.dedication .date{font-size:10px;letter-spacing:.1em;color:var(--pink);font-weight:700}.dedication p{font-family:'Playfair Display',serif;font-style:italic;font-size:14px;line-height:1.55;color:#ecdfe5;margin:5px 0 0}.footer{text-align:center;margin-top:25px;color:var(--muted);font-family:'Playfair Display',serif;font-style:italic;font-size:14px}.footer span{color:var(--pink)}
-@media(max-width:790px){.layout{grid-template-columns:1fr}.shell{padding:18px 15px 45px}.intro{padding:32px 5px 24px}.player{padding:23px 23px 20px}.halo{width:min(68vw,270px);height:min(68vw,270px)}.tracklist{max-height:none}.topnote{display:none}}@media(prefers-reduced-motion:reduce){.vinyl{animation:none!important}*{scroll-behavior:auto!important}}
+:root {
+  --bg:#090d12;
+  --panel:#121b22;
+  --panel2:#18252d;
+  --text:#eef5f3;
+  --muted:#92aaa7;
+  --green:#70d8b1;
+  --blue:#80aaff;
+  --pink:#f4a3c2;
+  --line:rgba(255,255,255,.09);
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:radial-gradient(ellipse at 10% 0%,#143d36 0%,transparent 42%),
+             radial-gradient(ellipse at 100% 10%,#162640 0%,transparent 40%),
+             var(--bg);
+  color:var(--text);
+  font-family:Inter,Arial,sans-serif;
+  min-height:100vh;
+}
+button,input{font:inherit}
+button{cursor:pointer}
+.app{max-width:1060px;margin:auto;padding:32px 20px 70px}
+header{text-align:center;margin-bottom:35px}
+h1{
+  font-family:"Playfair Display",serif;
+  font-size:clamp(28px,5vw,46px);
+  font-weight:500;
+  margin:8px 0;
+}
+header p{color:var(--muted);font-size:14px}
+.layout{
+  display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(0,1fr);
+  gap:24px;
+  align-items:start;
+}
+.panel{
+  background:rgba(18,27,34,.84);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:25px;
+  box-shadow:0 18px 60px rgba(0,0,0,.22);
+}
+.player{text-align:center}
+.vinyl-wrap{
+  width:min(270px,75%);
+  aspect-ratio:1;
+  margin:10px auto 25px;
+  position:relative;
+}
+.vinyl{
+  position:absolute;
+  inset:0;
+  border-radius:50%;
+  background:
+    repeating-radial-gradient(circle,transparent 0 5px,rgba(255,255,255,.045) 6px 7px),
+    conic-gradient(#070a0c,#222b30,#060809,#25353b,#070a0c);
+  box-shadow:0 15px 45px #0009,0 0 0 1px #ffffff22;
+  animation:rotate 9s linear infinite;
+  animation-play-state:paused;
+}
+.vinyl.playing{animation-play-state:running}
+.vinyl-center{
+  position:absolute;
+  inset:33%;
+  border-radius:50%;
+  background:radial-gradient(circle at 30% 25%,#8de4be,#286b66 60%,#243e62);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  box-shadow:0 0 0 2px #ffffff28;
+}
+.vinyl-center span{
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-size:12px;
+  color:white;
+}
+.vinyl-center:after{
+  content:"";
+  width:8px;
+  height:8px;
+  background:#071016;
+  border-radius:50%;
+  position:absolute;
+}
+@keyframes rotate{to{transform:rotate(360deg)}}
+.now-label{
+  color:var(--green);
+  text-transform:uppercase;
+  letter-spacing:2px;
+  font-size:10px;
+  font-weight:700;
+}
+#songTitle{
+  font-family:"Playfair Display",serif;
+  font-size:29px;
+  font-weight:500;
+  margin:12px 0 7px;
+}
+#trackNumber{color:var(--muted);font-size:12px}
+.progress{
+  margin:27px 0 13px;
+}
+input[type=range]{
+  width:100%;
+  accent-color:var(--green);
+  cursor:pointer;
+}
+.time{
+  display:flex;
+  justify-content:space-between;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:8px;
+}
+.controls{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:16px;
+  margin:21px 0;
+}
+.control{
+  border:0;
+  color:#d4e6e2;
+  background:transparent;
+  font-size:23px;
+  width:40px;
+  height:40px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+}
+.control:hover{background:#ffffff13}
+.control.active{color:var(--green)}
+.main-play{
+  width:64px;
+  height:64px;
+  color:#09241c;
+  background:linear-gradient(135deg,#92e9c1,#6fa9ed);
+  border-radius:50%;
+  font-size:26px;
+  border:0;
+  box-shadow:0 8px 28px #70d8b133;
+}
+.main-play:hover{transform:scale(1.06)}
+.volume{
+  display:flex;
+  align-items:center;
+  gap:15px;
+  justify-content:center;
+  max-width:240px;
+  margin:25px auto 0;
+  color:var(--muted);
+}
+.volume input{max-width:170px}
+.playlist-head{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  margin-bottom:18px;
+}
+.playlist-head h2{
+  font-size:18px;
+  font-weight:600;
+  margin:0;
+}
+.count{color:var(--muted);font-size:12px}
+.track{
+  width:100%;
+  display:flex;
+  align-items:center;
+  gap:14px;
+  background:transparent;
+  border:1px solid transparent;
+  text-align:left;
+  padding:13px;
+  color:var(--text);
+  border-radius:14px;
+  margin-bottom:8px;
+  transition:.2s;
+}
+.track:hover{background:#ffffff0b}
+.track.selected{
+  background:linear-gradient(110deg,#21473c88,#1c304c77);
+  border-color:#70d8b13b;
+}
+.track-num{
+  color:var(--green);
+  font-size:13px;
+  width:24px;
+}
+.track-info{flex:1;min-width:0}
+.track-name{
+  display:block;
+  font-size:14px;
+  font-weight:600;
+}
+.track-sub{
+  display:block;
+  color:var(--muted);
+  font-size:11px;
+  margin-top:5px;
+}
+.track-icon{
+  color:var(--green);
+  font-size:17px;
+}
+.dedication{
+  background:linear-gradient(135deg,#1a3733,#24243d);
+  border:1px solid #90b4b42e;
+  border-radius:13px;
+  padding:14px 16px;
+  margin:2px 5px 13px 40px;
+  color:#f0dce7;
+  font-family:"Playfair Display",serif;
+  font-style:italic;
+  font-size:15px;
+  line-height:1.6;
+}
+.dedication small{
+  display:block;
+  margin-bottom:5px;
+  color:var(--green);
+  font:600 10px Inter,sans-serif;
+}
+.notice{
+  color:var(--pink);
+  font-size:12px;
+  line-height:1.6;
+  margin-top:15px;
+}
+.notice:empty{display:none}
+@media(max-width:750px){
+  .layout{grid-template-columns:1fr}
+  .panel{padding:22px 18px}
+  .app{padding:25px 13px 55px}
+  .vinyl-wrap{width:min(240px,72%)}
+}
+@media(prefers-reduced-motion:reduce){
+  .vinyl{animation:none}
+}
 </style>
 </head>
 <body>
-<main class="shell">
-<header class="topbar"><div class="brand"><span class="brand-mark">♫</span> PARA TI <span style="color:var(--pink)">♥</span></div></header>
-<section class="intro"><h1>Canciones que me hacen <em>pensar en ti.</em></h1></section>
-<div class="layout">
-<section class="panel player" aria-label="Reproductor musical">
-<div class="upperline"><span class="micro">REPRODUCIENDO AHORA</span><span class="tag" id="track-counter">01 / 07</span></div>
-<div class="vinyl-wrap"><div class="halo"><div class="vinyl" id="vinyl"></div><div class="heart-center">♥</div></div></div>
-<div class="now"><h2 class="songname" id="current-title">Beso</h2><div class="songdetail" id="current-subtitle">Canción 1 de 7</div></div>
-<div class="timeline"><input id="seek" class="seek" type="range" min="0" max="100" value="0" step="0.1" aria-label="Avance de la canción"/><div class="times"><span id="elapsed">0:00</span><span id="duration">0:00</span></div></div>
-<div class="controls"><button class="icon-button" id="shuffle" title="Aleatorio" aria-label="Aleatorio"><svg viewBox="0 0 24 24"><path d="M4 6h3c5 0 5 12 10 12h3m-4-4 4 4-4 4M4 18h3c2 0 3-2 4-4m2-4c1-2 2-4 4-4h3m-4-4 4 4-4 4"/></svg></button><button class="icon-button" id="prev" title="Anterior" aria-label="Anterior"><svg viewBox="0 0 24 24"><path d="M5 5v14M19 5 8 12l11 7z"/></svg></button><button class="play" id="play" title="Reproducir" aria-label="Reproducir"><svg id="play-icon" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg></button><button class="icon-button" id="next" title="Siguiente" aria-label="Siguiente"><svg viewBox="0 0 24 24"><path d="M19 5v14M5 5l11 7-11 7z"/></svg></button><button class="icon-button" id="repeat" title="Repetir" aria-label="Repetir"><svg viewBox="0 0 24 24"><path d="m17 2 4 4-4 4M3 11V9a3 3 0 0 1 3-3h15M7 22l-4-4 4-4m14-1v2a3 3 0 0 1-3 3H3"/></svg></button></div>
-<div class="secondary"><div class="volume-box"><svg viewBox="0 0 24 24"><path d="M4 9v6h4l5 4V5L8 9H4zm12-1a6 6 0 0 1 0 8m2-11a10 10 0 0 1 0 14"/></svg><input id="volume" class="volume" type="range" min="0" max="1" step="0.01" value="0.8" aria-label="Volumen"/></div><span class="status" id="status">Pausado</span></div><p class="message" id="message" aria-live="polite"></p>
-</section>
-<section class="panel" aria-label="Lista de canciones"><div class="playlist-head"><div><h2>Nuestras canciones</h2></div><span class="count" id="track-count">7 canciones</span></div><div class="tracklist" id="tracklist"></div></section>
+<div class="app">
+  <header>
+    <h1>Canciones que me hacen pensar en ti</h1>
+    <p>Aquí voy a guardar las canciones que me recuerdan a ti.</p>
+  </header>
+
+  <div class="layout">
+    <section class="panel player">
+      <div class="vinyl-wrap">
+        <div class="vinyl" id="vinyl">
+          <div class="vinyl-center"><span>Para ti</span></div>
+        </div>
+      </div>
+
+      <div class="now-label">Reproduciendo ahora</div>
+      <h2 id="songTitle">Beso</h2>
+      <div id="trackNumber">Canción 01 de 07</div>
+
+      <div class="progress">
+        <input id="progress" type="range" min="0" max="1000" value="0" aria-label="Progreso">
+        <div class="time">
+          <span id="currentTime">0:00</span>
+          <span id="duration">0:00</span>
+        </div>
+      </div>
+
+      <div class="controls">
+        <button class="control" id="shuffle" title="Aleatorio">⤨</button>
+        <button class="control" id="previous" title="Anterior">⏮</button>
+        <button class="main-play" id="play" title="Reproducir">▶</button>
+        <button class="control" id="next" title="Siguiente">⏭</button>
+        <button class="control" id="repeat" title="Repetir">↻</button>
+      </div>
+
+      <div class="volume">
+        <span>♫</span>
+        <input id="volume" type="range" min="0" max="1" step=".01" value=".8" aria-label="Volumen">
+      </div>
+      <p class="notice" id="notice"></p>
+    </section>
+
+    <section class="panel">
+      <div class="playlist-head">
+        <h2>Nuestras canciones</h2>
+        <span class="count">7 canciones</span>
+      </div>
+      <div id="playlist"></div>
+    </section>
+  </div>
 </div>
-</main>
+
 <audio id="audio" preload="metadata"></audio>
+
 <script>
-const canciones=[
- {titulo:'Beso',archivo:'audio/cancion-01.mp3'},
- {titulo:'Donde Nadie Pueda Ir',archivo:'audio/cancion-02.mp3'},
- {titulo:'Feliz me Siento',archivo:'audio/cancion-03.mp3',fecha:'19/08/2026',nota:'Feliz primer año de muchos amor mío'},
- {titulo:'Eres ese Algo',archivo:'audio/cancion-04.mp3',fecha:'19/08/2026',nota:'El día en que nuestras vidas se cruzaron para siempre ❤️'},
- {titulo:'UWAIE',archivo:'audio/cancion-05.mp3'},
- {titulo:'DÓNDE',archivo:'audio/cancion-06.mp3',nota:'Esta siempre me recordaba a ti desde que salió.'},
- {titulo:'Que Tienen Tus Ojos',archivo:'audio/cancion-07.mp3'}
+const songs = [
+  {
+    title:"Beso",
+    file:"audio/cancion-01.mp3"
+  },
+  {
+    title:"Donde Nadie Pueda Ir",
+    file:"audio/cancion-02.mp3"
+  },
+  {
+    title:"Feliz me Siento",
+    file:"audio/cancion-03.mp3",
+    date:"19/08/2026",
+    message:"Feliz primer año de muchos amor mío ❤️"
+  },
+  {
+    title:"Eres ese Algo",
+    file:"audio/cancion-04.mp3",
+    date:"19/08/2026",
+    message:"El día en que nuestras vidas se cruzaron para siempre ❤️"
+  },
+  {
+    title:"UWAIE",
+    file:"audio/cancion-05.mp3"
+  },
+  {
+    title:"DÓNDE",
+    file:"audio/cancion-06.mp3",
+    message:"Esta siempre me recordaba a ti desde que salió. ❤️"
+  },
+  {
+    title:"Que Tienen Tus Ojos",
+    file:"audio/cancion-07.mp3"
+  }
 ];
-const $=id=>document.getElementById(id);const audio=$('audio');let index=0,shuffle=false,repeat=false;audio.volume=.8;
-const playSVG='<path d="M8 5v14l11-7z"/>';const pauseSVG='<path d="M7 5h4v14H7zm6 0h4v14h-4z"/>';
-function safeText(s){return String(s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function render(){ $('current-title').textContent=canciones[index].titulo;$('current-subtitle').textContent=`Canción ${index+1} de ${canciones.length}`;$('track-counter').textContent=`${String(index+1).padStart(2,'0')} / ${String(canciones.length).padStart(2,'0')}`;$('track-count').textContent=`${canciones.length} canciones`;
- $('tracklist').innerHTML=canciones.map((c,i)=>`<div class="track-entry"><button class="track ${i===index?'selected':''}" data-index="${i}" aria-label="${safeText(c.titulo)}"><span class="track-number">${String(i+1).padStart(2,'0')}</span><span class="mini-art">${i===index&&!audio.paused?'♫':'♥'}</span><span class="track-info"><span class="track-title">${safeText(c.titulo)}</span></span><span class="track-icon">${i===index&&!audio.paused?'♫':'▷'}</span></button>${c.nota?`<div class="dedication">${c.fecha?`<div class="date">✦ ${safeText(c.fecha)}</div>`:''}<p>“${safeText(c.nota)}”</p></div>`:''}</div>`).join('');
- document.querySelectorAll('[data-index]').forEach(el=>el.addEventListener('click',()=>{const i=Number(el.dataset.index);if(i===index){toggle()}else{load(i,true)}}));updatePlayback();}
-function updatePlayback(){const playing=!audio.paused;$('vinyl').classList.toggle('playing',playing);$('play-icon').innerHTML=playing?pauseSVG:playSVG;$('play').setAttribute('aria-label',playing?'Pausar':'Reproducir');$('play').title=playing?'Pausar':'Reproducir';$('status').textContent=playing?'Reproduciendo':'Pausado';}
-function load(i,autoplay=false){index=i;audio.src=canciones[i].archivo;audio.load();$('seek').value=0;$('elapsed').textContent='0:00';$('duration').textContent='0:00';$('message').textContent='';render();if(autoplay)tryPlay();}
-async function tryPlay(){try{await audio.play();$('message').textContent=''}catch(e){$('message').textContent='No se pudo reproducir. Comprueba que el archivo MP3 esté en la carpeta audio.';}}
-function toggle(){if(!audio.getAttribute('src'))load(index,false);if(audio.paused)tryPlay();else audio.pause();}
-function next(forced=false){if(repeat&&!forced){audio.currentTime=0;tryPlay();return;}let n=shuffle&&canciones.length>1?Math.floor(Math.random()*(canciones.length-1)):null;if(n!==null&&n>=index)n++;load(n===null?(index+1)%canciones.length:n,true);}
-function prev(){if(audio.currentTime>3){audio.currentTime=0;return;}load((index-1+canciones.length)%canciones.length,true);}
-function format(s){return Number.isFinite(s)?`${Math.floor(s/60)}:${String(Math.floor(s%60)).padStart(2,'0')}`:'0:00'}
-$('play').addEventListener('click',toggle);$('next').addEventListener('click',()=>next(true));$('prev').addEventListener('click',prev);$('shuffle').addEventListener('click',()=>{shuffle=!shuffle;$('shuffle').classList.toggle('active',shuffle);$('shuffle').setAttribute('aria-pressed',shuffle)});$('repeat').addEventListener('click',()=>{repeat=!repeat;$('repeat').classList.toggle('active',repeat);$('repeat').setAttribute('aria-pressed',repeat)});
-$('volume').addEventListener('input',e=>audio.volume=Number(e.target.value));$('seek').addEventListener('input',e=>{if(Number.isFinite(audio.duration))audio.currentTime=audio.duration*Number(e.target.value)/100});
-audio.addEventListener('timeupdate',()=>{$('elapsed').textContent=format(audio.currentTime);$('seek').value=Number.isFinite(audio.duration)?audio.currentTime/audio.duration*100:0});audio.addEventListener('loadedmetadata',()=>{$('duration').textContent=format(audio.duration)});audio.addEventListener('play',render);audio.addEventListener('pause',render);audio.addEventListener('ended',()=>next());audio.addEventListener('error',()=>{$('message').textContent=`No se encontró ${canciones[index].archivo}. Agrégalo a la carpeta audio para escuchar esta canción.`;updatePlayback()});
-document.addEventListener('keydown',e=>{if(e.code==='Space'&&!['INPUT','TEXTAREA','BUTTON'].includes(document.activeElement.tagName)){e.preventDefault();toggle()}});
-load(0);
+
+const audio = document.getElementById("audio");
+const vinyl = document.getElementById("vinyl");
+const songTitle = document.getElementById("songTitle");
+const trackNumber = document.getElementById("trackNumber");
+const playlist = document.getElementById("playlist");
+const playButton = document.getElementById("play");
+const progress = document.getElementById("progress");
+const currentTime = document.getElementById("currentTime");
+const duration = document.getElementById("duration");
+const volume = document.getElementById("volume");
+const notice = document.getElementById("notice");
+const shuffleButton = document.getElementById("shuffle");
+const repeatButton = document.getElementById("repeat");
+
+let current = 0;
+let shuffle = false;
+let repeat = false;
+
+function number(n) {
+  return String(n).padStart(2,"0");
+}
+
+function formatTime(time) {
+  if (!Number.isFinite(time)) return "0:00";
+  const minutes = Math.floor(time / 60);
+  const seconds = Math.floor(time % 60);
+  return minutes + ":" + number(seconds);
+}
+
+function renderPlaylist() {
+  playlist.innerHTML = "";
+
+  songs.forEach((song,index) => {
+    const container = document.createElement("div");
+    const button = document.createElement("button");
+    button.className = "track" + (index === current ? " selected" : "");
+    button.type = "button";
+
+    const num = document.createElement("span");
+    num.className = "track-num";
+    num.textContent = number(index + 1);
+
+    const info = document.createElement("span");
+    info.className = "track-info";
+
+    const name = document.createElement("span");
+    name.className = "track-name";
+    name.textContent = song.title;
+    info.appendChild(name);
+
+    const sub = document.createElement("span");
+    sub.className = "track-sub";
+    sub.textContent = "Canción " + number(index + 1);
+    info.appendChild(sub);
+
+    const state = document.createElement("span");
+    state.className = "track-icon";
+    state.textContent = index === current && !audio.paused ? "♫" : "▶";
+
+    button.append(num,info,state);
+    button.addEventListener("click",() => {
+      if (index === current) {
+        togglePlay();
+      } else {
+        selectSong(index,true);
+      }
+    });
+    container.appendChild(button);
+
+    if (song.message) {
+      const dedication = document.createElement("div");
+      dedication.className = "dedication";
+
+      if (song.date) {
+        const date = document.createElement("small");
+        date.textContent = song.date;
+        dedication.appendChild(date);
+      }
+
+      const message = document.createElement("span");
+      message.textContent = song.message;
+      dedication.appendChild(message);
+      container.appendChild(dedication);
+    }
+
+    playlist.appendChild(container);
+  });
+}
+
+function updatePlayer() {
+  const song = songs[current];
+  songTitle.textContent = song.title;
+  trackNumber.textContent =
+    "Canción " + number(current + 1) +
+    " de " + number(songs.length);
+
+  const playing = !audio.paused && !audio.ended;
+  playButton.textContent = playing ? "Ⅱ" : "▶";
+  vinyl.classList.toggle("playing",playing);
+  renderPlaylist();
+}
+
+function selectSong(index,autoplay=false) {
+  current = index;
+  audio.src = songs[current].file;
+  audio.load();
+  progress.value = 0;
+  currentTime.textContent = "0:00";
+  duration.textContent = "0:00";
+  notice.textContent = "";
+  updatePlayer();
+
+  if (autoplay) {
+    audio.play().catch(() => {
+      notice.textContent =
+        "No fue posible reproducir el archivo de esta canción.";
+    });
+  }
+}
+
+function togglePlay() {
+  if (audio.paused) {
+    audio.play().catch(() => {
+      notice.textContent =
+        "No fue posible reproducir el archivo de esta canción.";
+    });
+  } else {
+    audio.pause();
+  }
+}
+
+function nextSong() {
+  if (shuffle && songs.length > 1) {
+    let next;
+    do {
+      next = Math.floor(Math.random() * songs.length);
+    } while (next === current);
+    selectSong(next,true);
+  } else {
+    selectSong((current + 1) % songs.length,true);
+  }
+}
+
+function previousSong() {
+  if (audio.currentTime > 3) {
+    audio.currentTime = 0;
+    return;
+  }
+  selectSong((current - 1 + songs.length) % songs.length,true);
+}
+
+playButton.addEventListener("click",togglePlay);
+document.getElementById("next").addEventListener("click",nextSong);
+document.getElementById("previous").addEventListener("click",previousSong);
+
+shuffleButton.addEventListener("click",() => {
+  shuffle = !shuffle;
+  shuffleButton.classList.toggle("active",shuffle);
+});
+
+repeatButton.addEventListener("click",() => {
+  repeat = !repeat;
+  repeatButton.classList.toggle("active",repeat);
+});
+
+audio.addEventListener("play",updatePlayer);
+audio.addEventListener("pause",updatePlayer);
+audio.addEventListener("loadedmetadata",() => {
+  duration.textContent = formatTime(audio.duration);
+});
+
+audio.addEventListener("timeupdate",() => {
+  currentTime.textContent = formatTime(audio.currentTime);
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    progress.value = Math.round(audio.currentTime / audio.duration * 1000);
+  }
+});
+
+progress.addEventListener("input",() => {
+  if (Number.isFinite(audio.duration) && audio.duration > 0) {
+    audio.currentTime = (Number(progress.value) / 1000) * audio.duration;
+  }
+});
+
+volume.addEventListener("input",() => {
+  audio.volume = Number(volume.value);
+});
+
+audio.addEventListener("ended",() => {
+  if (repeat) {
+    audio.currentTime = 0;
+    audio.play();
+  } else {
+    nextSong();
+  }
+});
+
+audio.addEventListener("error",() => {
+  if (audio.src) {
+    notice.textContent =
+      "No se encontró el audio. Revisa que el archivo MP3 esté en la carpeta audio.";
+  }
+});
+
+audio.volume = .8;
+selectSong(0,false);
 </script>
 </body>
 </html>
